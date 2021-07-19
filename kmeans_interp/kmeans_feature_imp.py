@@ -3,7 +3,7 @@ import numpy as np
 
 
 class KMeansInterp(KMeans):
-    def __init__(self, ordered_feature_names, feature_importance_method='centroid_stretch', **kwargs):
+    def __init__(self, ordered_feature_names, feature_importance_method='wcss_min', **kwargs):
         super(KMeansInterp, self).__init__(**kwargs)
         self.feature_importance_method = feature_importance_method
         self.ordered_feature_names = ordered_feature_names
@@ -14,17 +14,17 @@ class KMeansInterp(KMeans):
         if not len(self.ordered_feature_names) == self.n_features_in_:
             raise Exception(f"Model is fitted on {self.n_features_in_} but ordered_feature_names = {len(self.ordered_feature_names)}")
         
-        if self.feature_importance_method == "centroid_stretch":
-            self.feature_importances_ = self.get_feature_imp_centroid_stretch()
+        if self.feature_importance_method == "wcss_min":
+            self.feature_importances_ = self.get_feature_imp_wcss_min()
         elif self.feature_importance_method == "unsup2sup":
             self.feature_importances_ = self.get_feature_imp_unsup2sup(X)
         else: 
             raise Exception(f" {self.feature_importance_method}"+\
-            "is not available. Please choose from  ['centroid_stretch' , 'unsup2sup']")
+            "is not available. Please choose from  ['wcss_min' , 'unsup2sup']")
         
         return self
         
-    def get_feature_imp_centroid_stretch(self):
+    def get_feature_imp_wcss_min(self):
         labels = self.n_clusters
         centroids = self.cluster_centers_
         centroids = np.vectorize(lambda x: np.abs(x))(centroids)
