@@ -27,6 +27,7 @@ class KMeansInterp(KMeans):
     def get_feature_imp_centroid_stretch(self):
         labels = self.n_clusters
         centroids = self.cluster_centers_
+        centroids = np.vectorize(lambda x: np.abs(x))(centroids)
         sorted_centroid_features_idx = centroids.argsort(axis=1)[:,::-1]
 
         cluster_feature_weights = {}
