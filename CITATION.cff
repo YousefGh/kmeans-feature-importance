@@ -1,8 +1,8 @@
 cff-version: 1.0.0
 message: "If you use this software, please cite it as below."
 authors:
-- family-names: "Yousef A."
-  given-names: "Alghofaili"
+- family-names: "Alghofaili"
+  given-names: "Yousef"
   orcid: "https://orcid.org/0000-0002-3422-2037"
 title: "Interpretable K-Means: Clusters Feature Importances"
 version: 1.0.0
